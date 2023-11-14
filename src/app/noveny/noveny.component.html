@@ -1,0 +1,45 @@
+<ng-container *ngIf="!showError; else hiba">
+
+    <ng-container *ngIf="plants; else varakozas">
+        <div class="row g-4">
+
+            <div *ngFor="let noveny of plants" class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <div class="card h-100">
+                  <img [src]="noveny.image_url" class="card-img-top" [alt]="noveny.name">
+                  <div class="card-body">
+                    <h5 class="card-title">{{noveny.name}}</h5>
+                    <p class="card-text">
+                        {{noveny.description}}
+                    </p>
+                  </div>
+                  <div class="card-footer">
+                    <small class="text-muted">{{noveny.price}} Ft</small>
+                    <div class="input-group mb-3">
+                        <input #db type="number" value="1" min="1" class="form-control" aria-describedby="button-addon2">
+                        <button (click)="kosarba(noveny.id,db.value)" class="btn btn-outline-secondary" type="button" id="button-addon2">Kosárba</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+        </div>
+        
+        <!-- {{plants|json}} -->
+    </ng-container>
+
+    <ng-template #varakozas>
+        <div class="alert alert-warning" role="alert">
+            <p>Az adatok töltődnek, kérem várjon!</p>
+          </div>
+    </ng-template>
+
+</ng-container>
+
+<ng-template #hiba> 
+    <div class="alert alert-danger" role="alert">
+        <p>Sajnos hiba történt az adatok letöltésekor!</p>
+        <p>{{errorMessage}}</p>
+    </div>
+</ng-template>
+

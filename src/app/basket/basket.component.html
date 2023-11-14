@@ -1,0 +1,27 @@
+<h1>Kosár</h1>
+<ng-container *ngIf="tetelek; else ures">
+    <div *ngFor="let tetel of tetelek" class="row my-2">
+        <div class="col-12 fw-light">
+            {{keresNoveny(tetel.id).name}}
+        </div>
+        <div class="col-12">
+            <div class="input-group input-group-sm">
+                <input class="dbinput" (change)="valtozas(tetel)" [(ngModel)]="tetel.db" type="number" value="1" min="1" class="form-control">
+                <span>db x {{keresNoveny(tetel.id).price}}Ft = 
+                {{tetel.db*keresNoveny(tetel.id).price}}Ft
+                </span>
+            </div>
+        </div>
+        <div class="col-12">
+            <button (click)="tetelTorlese(tetel)" type="button" class="btn btn-primary btn-sm">Tétel törlése</button>
+        </div>
+    </div>
+    {{osszErtek()}}Ft
+    <button routerLink="/rendeles" type="button" class="btn btn-primary btn-sm">Kosár véglegesítése</button>
+</ng-container>
+<ng-template #ures>
+    <h2>
+        A kosár üres!
+    </h2>
+</ng-template>
+<!-- {{tetelek|json}} -->
